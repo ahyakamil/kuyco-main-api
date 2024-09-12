@@ -28,7 +28,7 @@ public class CustomerController {
     private AuthHelper authHelper;
 
     @PostMapping("/topup")
-    public ResponseEntity<ResponseWrapper<Void>> register(@RequestBody TopUpBalanceDto topUpBalanceDto, HttpServletRequest request) {
+    public ResponseEntity<ResponseWrapper<Void>> topUpBalance(@RequestBody TopUpBalanceDto topUpBalanceDto, HttpServletRequest request) {
         customerService.topUpBalance(authHelper.getAccount(request).getCustomer().getId(), topUpBalanceDto);
         return new ResponseWrapper<Void>().buildResponseOk();
     }

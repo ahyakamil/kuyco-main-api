@@ -33,4 +33,5 @@ public class CategoriesController {
     public ResponseEntity<ResponseWrapper<ItemCategoryDto>> getById(@PathVariable("id") Long id) {
         ItemCategoryDto itemCategory = itemCategoryService.getById(id);
         return new ResponseWrapper<ItemCategoryDto>().buildResponseOk(itemCategory);
-    }}
+    }
+}

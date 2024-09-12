@@ -12,4 +12,9 @@ public class ErrorMessage {
     public static final String INVALID_CREDENTIAL = "Invalid credential";
     public static final String REFRESH_TOKEN_CANNOT_BE_BLANK = "Refresh token can not be blank";
     public static final String TOP_UP_BALANCE_MIN = "Minimum top up balance is 1";
+    public static final String TOP_UP_BALANCE_CANNOT_BE_NULL = "Top up balance can not be null";
+    public static final String PRICE_CANNOT_BE_NULL = "Price can not be null";
+    public static final String PRICE_MIN = "Minimum price is 1";
+    public static final String CATEGORY_ID_CANNOT_BE_NULL = "Category id can not be null";
+    public static final String ITEM_CATEGORY_NOT_FOUND = "Item category not found";
 }
