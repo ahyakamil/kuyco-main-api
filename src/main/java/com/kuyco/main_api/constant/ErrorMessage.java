@@ -9,4 +9,5 @@ public class ErrorMessage {
     public static final String PASSWORD_CANNOT_BE_BLANK = "Password can not be blank";
     public static final String PASSWORD_CANNOT_BE_GREATER_THAN = "Password can not be greater than 50";
     public static final String EMAIL_ALREADY_EXIST = "Email already exist";
+    public static final String INVALID_CREDENTIAL = "Invalid credential";
 }
