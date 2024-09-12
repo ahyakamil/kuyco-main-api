@@ -46,7 +46,7 @@ public class AuthServiceImpl implements AuthService {
         validation.validate(loginDto);
         UserDetails userDetails = userDetailsService.loadUserByUsername(loginDto.getEmail());
         if (userDetails == null || !passwordEncoder.matches(loginDto.getPassword(), userDetails.getPassword())) {
-            throw new RuntimeException("Invalid email or password");
+            throw new UnauthorizedException(ErrorMessage.INVALID_CREDENTIAL);
         }
 
         String token = jwtUtil.generateToken(userDetails.getUsername());

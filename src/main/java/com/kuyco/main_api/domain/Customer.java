@@ -22,4 +22,7 @@ public class Customer {
 
     @Column(nullable = false)
     private Double balance = 0.0;
+
+    @Version
+    private Long version;
 }
