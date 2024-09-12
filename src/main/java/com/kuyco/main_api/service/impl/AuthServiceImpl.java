@@ -7,8 +7,10 @@ import com.kuyco.main_api.domain.Account;
 import com.kuyco.main_api.domain.Customer;
 import com.kuyco.main_api.dto.AuthResponseDto;
 import com.kuyco.main_api.dto.LoginDto;
+import com.kuyco.main_api.dto.RefreshTokenDto;
 import com.kuyco.main_api.dto.RegisterDto;
 import com.kuyco.main_api.exception.ConflictException;
+import com.kuyco.main_api.exception.UnauthorizedException;
 import com.kuyco.main_api.repository.AccountRepository;
 import com.kuyco.main_api.repository.CustomerRepository;
 import com.kuyco.main_api.service.AuthService;
@@ -55,6 +57,27 @@ public class AuthServiceImpl implements AuthService {
         authResponseDto.setRefreshToken(refreshToken);
         return authResponseDto;
     }
+
+    @Override
+    public AuthResponseDto refreshToken(RefreshTokenDto refreshTokenDto) {
+        validation.validate(refreshTokenDto);
+        try {
+            String username = jwtUtil.extractUsername(refreshTokenDto.getRefreshToken());
+            if (username != null && jwtUtil.validateToken(refreshTokenDto.getRefreshToken(), username)) {
+                String token = jwtUtil.generateToken(username);
+                String refreshToken = jwtUtil.generateRefreshToken(username);
+
+                AuthResponseDto authResponseDto = new AuthResponseDto();
+                authResponseDto.setToken(token);
+                authResponseDto.setRefreshToken(refreshToken);
+                return authResponseDto;
+            }
+        } catch (Exception e) {
+            throw new UnauthorizedException(e.getMessage());
+        }
+        throw new UnauthorizedException(ErrorMessage.INVALID_CREDENTIAL);
+    }
+
 
     @Transactional
     @Override
