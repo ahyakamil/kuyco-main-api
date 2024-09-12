@@ -15,11 +15,6 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void deleteById(Long id) {
-
-    }
-
-    @Override
     public Page<ItemDto> getAll(Pageable pageable) {
         return null;
     }
@@ -27,10 +22,5 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ItemDto getById(Long id) {
         return null;
-    }
-
-    @Override
-    public void updateById(Long id, CreateItemDto updateDto) {
-
     }
 }
