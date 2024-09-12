@@ -1,10 +1,7 @@
 package com.kuyco.main_api.config;
 
 import com.kuyco.main_api.common.ResponseWrapper;
-import com.kuyco.main_api.exception.BadRequestException;
-import com.kuyco.main_api.exception.ConflictException;
-import com.kuyco.main_api.exception.NotFoundException;
-import com.kuyco.main_api.exception.UnprocessableEntityException;
+import com.kuyco.main_api.exception.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,7 +30,12 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     }
 
     @ExceptionHandler(value = {UnprocessableEntityException.class})
-    protected ResponseEntity<ResponseWrapper<Object>> handleBadRequest(UnprocessableEntityException e) {
-        return new ResponseWrapper<>().buildUnprocessableEntity(e);
+    protected ResponseEntity<ResponseWrapper<Object>> handleUnprocessableEntity(UnprocessableEntityException e) {
+        return new ResponseWrapper<>().buildUnprocessableEntityException(e);
+    }
+
+    @ExceptionHandler(value = {UnauthorizedException.class})
+    protected ResponseEntity<ResponseWrapper<Object>> handleUnauthorized(UnauthorizedException e) {
+        return new ResponseWrapper<>().buildUnauthorizedException(e);
     }
 }

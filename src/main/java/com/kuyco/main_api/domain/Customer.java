@@ -16,8 +16,10 @@ public class Customer {
     private Long id;
     private String name;
     private String email;
-    private Double balance;
 
     @OneToMany(mappedBy = "customer")
     private List<Transaction> transactions;
+
+    @Column(nullable = false)
+    private Double balance = 0.0;
 }

@@ -1,81 +1,80 @@
 package com.kuyco.main_api.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.kuyco.main_api.constant.ErrorType;
 import com.kuyco.main_api.constant.InternalStatusCode;
-import com.kuyco.main_api.exception.BadRequestException;
-import com.kuyco.main_api.exception.ConflictException;
-import com.kuyco.main_api.exception.NotFoundException;
-import com.kuyco.main_api.exception.UnprocessableEntityException;
+import com.kuyco.main_api.exception.*;
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 @Getter
+@ToString
 public class ResponseWrapper<T>{
-    int statusCode;
+    private int statusCode;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    T data;
+    private T data;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    String error;
+    private String error;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    String message;
+    private String message;
 
     public ResponseEntity<ResponseWrapper<T>> buildResponseOk(T data) {
-        ResponseWrapper<T> responseWrapper = new ResponseWrapper<T>();
-        responseWrapper.statusCode = InternalStatusCode.GENERAL_SUCCESS;
-        responseWrapper.data = data;
-        return ResponseEntity.ok(responseWrapper);
+        this.statusCode = InternalStatusCode.GENERAL_SUCCESS;
+        this.data = data;
+        return ResponseEntity.ok(this);
     }
 
     public ResponseEntity<ResponseWrapper<T>> buildResponseOk() {
-        ResponseWrapper<T> responseWrapper = new ResponseWrapper<T>();
-        responseWrapper.statusCode = InternalStatusCode.GENERAL_SUCCESS;
-        return ResponseEntity.ok(responseWrapper);
+        this.statusCode = InternalStatusCode.GENERAL_SUCCESS;
+        return ResponseEntity.ok(this);
     }
 
     public ResponseEntity<ResponseWrapper<T>> buildResponseCreated() {
-        ResponseWrapper<T> responseWrapper = new ResponseWrapper<T>();
-        responseWrapper.statusCode = InternalStatusCode.GENERAL_SUCCESS;
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseWrapper);
+        this.statusCode = InternalStatusCode.GENERAL_SUCCESS;
+        return ResponseEntity.status(HttpStatus.CREATED).body(this);
     }
 
     public ResponseEntity<ResponseWrapper<T>> buildGeneralException(Exception e) {
-        ResponseWrapper<T> responseWrapper = new ResponseWrapper<T>();
-        responseWrapper.statusCode = InternalStatusCode.GENERAL_ERROR;
-        responseWrapper.error = ErrorType.ERROR_GENERAL;
-        responseWrapper.message = e.getMessage();
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseWrapper);
+        this.statusCode = InternalStatusCode.GENERAL_ERROR;
+        this.error = ErrorType.ERROR_GENERAL;
+        this.message = e.getMessage();
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(this);
     }
 
     public ResponseEntity<ResponseWrapper<T>> buildConflictException(ConflictException e) {
-        ResponseWrapper<T> responseWrapper = new ResponseWrapper<T>();
-        responseWrapper.statusCode = InternalStatusCode.GENERAL_WARNING;
-        responseWrapper.error = ErrorType.ERROR_CONFLICT;
-        responseWrapper.message = e.getMessage();
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(responseWrapper);
+        this.statusCode = InternalStatusCode.GENERAL_WARNING;
+        this.error = ErrorType.ERROR_CONFLICT;
+        this.message = e.getMessage();
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(this);
     }
 
     public ResponseEntity<ResponseWrapper<T>> buildNotFoundException(NotFoundException e) {
-        ResponseWrapper<T> responseWrapper = new ResponseWrapper<T>();
-        responseWrapper.statusCode = InternalStatusCode.GENERAL_WARNING;
-        responseWrapper.error = ErrorType.ERROR_NOT_FOUND;
-        responseWrapper.message = e.getMessage();
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseWrapper);
+        this.statusCode = InternalStatusCode.GENERAL_WARNING;
+        this.error = ErrorType.ERROR_NOT_FOUND;
+        this.message = e.getMessage();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(this);
     }
 
     public ResponseEntity<ResponseWrapper<T>> buildBadRequestException(BadRequestException e) {
-        ResponseWrapper<T> responseWrapper = new ResponseWrapper<T>();
-        responseWrapper.statusCode = InternalStatusCode.GENERAL_WARNING;
-        responseWrapper.error = ErrorType.ERROR_BAD_REQUEST;
-        responseWrapper.message = e.getMessage();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseWrapper);
+        this.statusCode = InternalStatusCode.GENERAL_WARNING;
+        this.error = ErrorType.ERROR_BAD_REQUEST;
+        this.message = e.getMessage();
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(this);
     }
 
-    public ResponseEntity<ResponseWrapper<T>> buildUnprocessableEntity(UnprocessableEntityException e) {
-        ResponseWrapper<T> responseWrapper = new ResponseWrapper<T>();
-        responseWrapper.statusCode = InternalStatusCode.GENERAL_WARNING;
-        responseWrapper.error = ErrorType.ERROR_UNPROCESSABLE_ENTITY;
-        responseWrapper.message = e.getMessage();
-        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(responseWrapper);
+    public ResponseEntity<ResponseWrapper<T>> buildUnprocessableEntityException(UnprocessableEntityException e) {
+        this.statusCode = InternalStatusCode.GENERAL_WARNING;
+        this.error = ErrorType.ERROR_UNPROCESSABLE_ENTITY;
+        this.message = e.getMessage();
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(this);
+    }
+
+    public ResponseEntity<ResponseWrapper<T>> buildUnauthorizedException(UnauthorizedException e) {
+        this.statusCode = InternalStatusCode.GENERAL_WARNING;
+        this.error = ErrorType.ERROR_UNAUTHORIZED;
+        this.message = e.getMessage();
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(this);
     }
 }
