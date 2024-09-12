@@ -12,6 +12,7 @@ import com.kuyco.main_api.exception.UnprocessableEntityException;
 import com.kuyco.main_api.repository.CustomerRepository;
 import com.kuyco.main_api.repository.ItemRepository;
 import com.kuyco.main_api.repository.TransactionRepository;
+import com.kuyco.main_api.service.TransactionReportService;
 import com.kuyco.main_api.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,8 +35,12 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Autowired
     private ItemRepository itemRepository;
+
     @Autowired
     private Validation validation;
+
+    @Autowired
+    private TransactionReportService transactionReportService;
 
     @Transactional
     @Override
@@ -70,6 +75,7 @@ public class TransactionServiceImpl implements TransactionService {
 
             customer.setBalance(newBalance);
             customerRepository.save(customer);
+            transactionReportService.produce(transaction);
         } else {
             throw new UnprocessableEntityException(ErrorMessage.AMOUNT_MUST_BE_GREATER_THAN_ZERO);
         }
