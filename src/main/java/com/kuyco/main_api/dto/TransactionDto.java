@@ -13,7 +13,7 @@ public class TransactionDto {
     private Long id;
     private CustomerDto customer;
 
-    private List<Item> items;
+    private List<ItemDto> items;
 
     private LocalDateTime transactionDate;
     private Double amount;

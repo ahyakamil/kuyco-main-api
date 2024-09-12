@@ -17,4 +17,8 @@ public class ErrorMessage {
     public static final String PRICE_MIN = "Minimum price is 1";
     public static final String CATEGORY_ID_CANNOT_BE_NULL = "Category id can not be null";
     public static final String ITEM_CATEGORY_NOT_FOUND = "Item category not found";
+    public static final String ITEMS_CANNOT_BE_NULL = "Items can not be null";
+    public static final String CUSTOMER_NOT_FOUND = "Customer not found";
+    public static final String AMOUNT_MUST_BE_GREATER_THAN_ZERO = "Amount must be greater than 0";
+    public static final String INSUFFICIENT_BALANCE = "Insufficient balance";
 }
