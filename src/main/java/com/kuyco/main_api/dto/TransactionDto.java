@@ -11,7 +11,6 @@ import java.util.List;
 @Setter
 public class TransactionDto {
     private Long id;
-    private CustomerDto customer;
 
     private List<ItemDto> items;
 

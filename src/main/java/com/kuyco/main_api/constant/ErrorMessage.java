@@ -21,4 +21,5 @@ public class ErrorMessage {
     public static final String CUSTOMER_NOT_FOUND = "Customer not found";
     public static final String AMOUNT_MUST_BE_GREATER_THAN_ZERO = "Amount must be greater than 0";
     public static final String INSUFFICIENT_BALANCE = "Insufficient balance";
+    public static final String END_DATE_CANNOT_BE_BEFORE_START_DATE = "End date cannot be before start date.";
 }
